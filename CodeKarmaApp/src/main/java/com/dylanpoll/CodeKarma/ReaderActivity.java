@@ -1,13 +1,18 @@
 package com.dylanpoll.CodeKarma;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -20,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ReaderActivity extends AppCompatActivity {
+
     private Button scan_btn;
 
     @Override
@@ -32,12 +38,13 @@ public class ReaderActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 IntentIntegrator integrator = new IntentIntegrator(activity);
-                integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
-                integrator.setPrompt("Scan");
-                integrator.setCameraId(0);
-                integrator.setBeepEnabled(true);
-                integrator.setBarcodeImageEnabled(false);
-                integrator.initiateScan();
+
+                    integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+                    integrator.setPrompt("Scan");
+                    integrator.setCameraId(0);
+                    integrator.setBeepEnabled(true);
+                    integrator.setBarcodeImageEnabled(false);
+                    integrator.initiateScan();
             }
         });
     }
@@ -56,7 +63,7 @@ public class ReaderActivity extends AppCompatActivity {
             super.onActivityResult(requestCode, resultCode, data);}//failed to read so continue to read
     }
     protected void postSignIn(String karmaID)  {
-        String url = "http://192.168.0.2:5000/users/signIn";
+        String url = "http://192.168.0.10:5000/users/signIn";
 
         JSONObject body = new JSONObject();
             try {body.put("idtoken", karmaID);} catch (JSONException e) {e.printStackTrace();}//takes the QR code and packs it into the patch body.
@@ -77,5 +84,6 @@ public class ReaderActivity extends AppCompatActivity {
         // Access the RequestQueue through your singleton class.
         MySingleton.getInstance(this).addToRequestQueue(request);
     }
+
 
 }
