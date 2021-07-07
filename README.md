@@ -1,2 +1,2 @@
 # AndriodApps
-this is a collection of andriod apps I have worked on
+this is a collection of andriod apps I have worked on and will be expanded as time goes by.
